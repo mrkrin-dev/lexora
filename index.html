@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lexora — Your hearings and fees, finally on one screen.</title>
+<meta name="description" content="Lexora sets up a matter and fee board plus an intake form for solo and small law firms in Chittoor, Andhra Pradesh.">
+<style>
+  :root{
+    --sand:#E7DED1;
+    --ink:#111A2B;
+    --teal:#0F766E;
+    --cream:#FBF8F3;
+    --charcoal:#3C4657;
+    --hairline:rgba(17,26,43,.14);
+    --radius:14px;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;}
+
+  html{-webkit-text-size-adjust:100%;}
+
+  body{
+    margin:0;
+    background:var(--sand);
+    color:var(--ink);
+    font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+    font-size:1rem;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  .wrap{
+    width:100%;
+    max-width:1040px;
+    margin:0 auto;
+    padding:0 20px;
+  }
+
+  .section{padding:44px 0;}
+
+  h1,h2,h3{
+    margin:0 0 12px;
+    line-height:1.25;
+    letter-spacing:-0.01em;
+    font-weight:650;
+  }
+
+  h1{font-size:1.75rem;}
+  h2{font-size:1.375rem;}
+  h3{font-size:1.0625rem;}
+
+  p{margin:0 0 14px;}
+
+  .eyebrow{
+    display:inline-block;
+    margin:0 0 10px;
+    font-size:1rem;
+    font-weight:700;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--teal);
+  }
+
+  .lede{color:var(--charcoal);}
+
+  /* Buttons and links */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    min-height:48px;
+    padding:12px 22px;
+    border-radius:999px;
+    font-size:1rem;
+    font-weight:650;
+    text-decoration:none;
+    text-align:center;
+    transition:transform .15s ease, background-color .15s ease, border-color .15s ease;
+  }
+
+  .btn-primary{background:var(--teal);color:var(--cream);}
+  .btn-primary:hover{background:#0C635C;}
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink);
+    border:1px solid rgba(17,26,43,.3);
+  }
+  .btn-ghost:hover{border-color:rgba(17,26,43,.55);}
+  .btn:active{transform:translateY(1px);}
+
+  .link-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:4px;
+  }
+
+  /* Header */
+  .masthead{
+    background:var(--cream);
+    border-bottom:1px solid var(--hairline);
+    padding:22px 0;
+  }
+  .masthead-inner{display:flex;flex-direction:column;gap:14px;align-items:flex-start;}
+  .brand{
+    font-size:1.375rem;
+    font-weight:700;
+    letter-spacing:-0.02em;
+    color:var(--ink);
+  }
+  .brand .mark{
+    display:inline-block;
+    width:10px;height:10px;
+    margin-right:9px;
+    border-radius:3px;
+    background:var(--teal);
+    transform:translateY(-1px);
+  }
+  .tagline{margin:0;color:var(--charcoal);}
+
+  /* Hero */
+  .hero{background:var(--sand);}
+  .hero-grid{display:grid;gap:26px;}
+  .price-line{
+    margin:0 0 20px;
+    font-size:1.0625rem;
+    font-weight:650;
+  }
+  .price-line .figure{
+    color:var(--teal);
+    font-size:1.1875rem;
+  }
+
+  .result-card{
+    background:var(--ink);
+    border-radius:var(--radius);
+    padding:16px;
+    box-shadow:0 10px 26px rgba(17,26,43,.16);
+  }
+  .result-card svg{display:block;width:100%;height:auto;}
+
+  .chart text{font-family:inherit;}
+
+  /* Simple raised surfaces */
+  .card{
+    background:var(--cream);
+    border:1px solid var(--hairline);
+    border-radius:var(--radius);
+    padding:22px;
+  }
+  .card + .card{margin-top:16px;}
+
+  .stack{display:grid;gap:16px;}
+
+  /* List items with a small drawn mark */
+  .ticks{list-style:none;margin:0;padding:0;display:grid;gap:14px;}
+  .ticks li{
+    position:relative;
+    padding-left:28px;
+  }
+  .ticks li::before{
+    content:"";
+    position:absolute;
+    left:0;top:.55em;
+    width:11px;height:11px;
+    border-radius:2px;
+    border:2px solid var(--teal);
+  }
+
+  .step-index{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:30px;height:30px;
+    margin-bottom:10px;
+    border-radius:9px;
+    background:rgba(15,118,110,.12);
+    color:var(--teal);
+    font-size:1rem;
+    font-weight:700;
+  }
+
+  .metric{
+    margin:0 0 4px;
+    font-size:1.875rem;
+    font-weight:700;
+    letter-spacing:-0.02em;
+    color:var(--ink);
+    overflow-wrap:anywhere;
+  }
+  .metric-label{margin:0;color:var(--charcoal);}
+
+  .quote{
+    margin:0 0 12px;
+    font-size:1.0625rem;
+    color:var(--ink);
+    overflow-wrap:anywhere;
+  }
+  .attribution{margin:0;color:var(--charcoal);font-weight:650;}
+
+  .fineprint{margin:0;font-size:1rem;color:var(--charcoal);}
+
+  /* Contact */
+  .contact{
+    background:var(--cream);
+    border-top:1px solid var(--hairline);
+  }
+  .contact-box{
+    background:var(--sand);
+    border:1px solid var(--hairline);
+    border-radius:var(--radius);
+    padding:24px;
+  }
+
+  /* Footer */
+  .site-footer{
+    background:var(--ink);
+    color:var(--cream);
+    padding:34px 0 40px;
+  }
+  .site-footer .brand{color:var(--cream);}
+  .site-footer .tagline{color:rgba(251,248,243,.76);}
+  .footer-links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px 22px;
+    margin-top:18px;
+  }
+  .footer-links a{
+    color:var(--cream);
+    min-height:48px;
+    display:inline-flex;
+    align-items:center;
+    text-decoration:none;
+    border-bottom:1px solid rgba(15,118,110,.85);
+    padding-bottom:2px;
+    font-weight:650;
+  }
+  .footer-links a:hover{border-bottom-color:var(--cream);}
+
+  .footer-note{
+    margin:20px 0 0;
+    font-size:1rem;
+    color:rgba(251,248,243,.66);
+  }
+
+  @media (min-width:760px){
+    .section{padding:64px 0;}
+    h1{font-size:2.25rem;}
+    h2{font-size:1.625rem;}
+    .masthead-inner{
+      flex-direction:row;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .hero-grid{grid-template-columns:1.05fr .95fr;align-items:center;gap:40px;}
+    .card + .card{margin-top:0;}
+    .stack-2{grid-template-columns:1fr 1fr;}
+    .stack-3{grid-template-columns:repeat(3,1fr);}
+    .contact-box{padding:32px;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .btn{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+  <!-- Section 1: Header -->
+  <header class="masthead">
+    <div class="wrap masthead-inner">
+      <div>
+        <div class="brand"><span class="mark" aria-hidden="true"></span>Lexora</div>
+        <p class="tagline">Your hearings and fees, finally on one screen.</p>
+      </div>
+      <a class="btn btn-primary" href="#contact" data-scroll aria-label="Jump down to the contact section">Go to contact</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Section 2: Hero -->
+    <section class="section hero" aria-labelledby="hero-title">
+      <div class="wrap hero-grid">
+        <div>
+          <h1 id="hero-title">One calm board for every matter, hearing and fee in your firm.</h1>
+          <p class="lede">For solo and small law firms in Chittoor, Andhra Pradesh.</p>
+          <p class="price-line"><span class="figure">Rs 25,000</span> a month.</p>
+          <a class="btn btn-primary" href="#contact" data-scroll aria-label="Jump down to the contact section">Go to contact</a>
+        </div>
+
+        <!-- Results card drawn in SVG -->
+        <div class="result-card">
+          <svg viewBox="0 0 340 200" role="img" aria-labelledby="chart-title chart-desc">
+            <title id="chart-title">Result</title>
+            <desc id="chart-desc">A rising chart line under the metric label.</desc>
+            <text class="chart" x="24" y="70" fill="#FBF8F3" font-size="30" font-weight="700" letter-spacing="-0.5">[YOUR RESULT]</text>
+            <line x1="24" y1="96" x2="316" y2="96" stroke="#FBF8F3" stroke-opacity="0.14" stroke-width="1"/>
+            <line x1="24" y1="130" x2="316" y2="130" stroke="#FBF8F3" stroke-opacity="0.08" stroke-width="1"/>
+            <line x1="24" y1="164" x2="316" y2="164" stroke="#FBF8F3" stroke-opacity="0.08" stroke-width="1"/>
+            <polyline points="24,166 78,150 132,156 186,124 240,116 294,72"
+                      fill="none" stroke="#0F766E" stroke-width="4"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="294" cy="72" r="6" fill="#0F766E"/>
+            <circle cx="294" cy="72" r="12" fill="#0F766E" fill-opacity="0.22"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Problem -->
+    <section class="section" aria-labelledby="problem-title">
+      <div class="wrap">
+        <p class="eyebrow">The everyday gap</p>
+        <h2 id="problem-title">Where a small firm quietly loses track</h2>
+        <ul class="ticks">
+          <li>Hearing dates living in a paper diary and in the clerk's memory.</li>
+          <li>Clients ringing the office again and again for status.</li>
+          <li>Fees staying uncollected for months.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Section 4: What I set up -->
+    <section class="section" aria-labelledby="setup-title">
+      <div class="wrap">
+        <p class="eyebrow">What I set up</p>
+        <h2 id="setup-title">A matter and fee board, plus an intake form</h2>
+        <p class="lede">A simple matter and fee board plus an intake form, so upcoming hearings and unpaid fees sit at the top of one screen and the office register stays clean.</p>
+      </div>
+    </section>
+
+    <!-- Section 5: Three projects -->
+    <section class="section" aria-labelledby="projects-title">
+      <div class="wrap">
+        <p class="eyebrow">The work</p>
+        <h2 id="projects-title">Three projects</h2>
+        <div class="stack stack-3">
+          <article class="card">
+            <span class="step-index" aria-hidden="true">1</span>
+            <h3>New matter intake form with a clean register</h3>
+            <p class="fineprint">Every new matter is entered once, and the register stays clean.</p>
+          </article>
+          <article class="card">
+            <span class="step-index" aria-hidden="true">2</span>
+            <h3>Matter and fee follow-up board</h3>
+            <p class="fineprint">Upcoming hearings and unpaid fees sit together at the top of one screen.</p>
+          </article>
+          <article class="card">
+            <span class="step-index" aria-hidden="true">3</span>
+            <h3>Monday court and judgment digest</h3>
+            <p class="fineprint">A Monday view of the court list and judgments that matter that week.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Proof -->
+    <section class="section" aria-labelledby="proof-title">
+      <div class="wrap">
+        <p class="eyebrow">Proof</p>
+        <h2 id="proof-title">What it has done so far</h2>
+        <div class="stack stack-2">
+          <article class="card">
+            <p class="metric">[YOUR RESULT]</p>
+            <p class="metric-label">Result</p>
+          </article>
+          <article class="card">
+            <blockquote class="quote">[CLIENT QUOTE]</blockquote>
+            <p class="attribution">[CLIENT NAME]</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 7: Price -->
+    <section class="section" aria-labelledby="price-title">
+      <div class="wrap">
+        <p class="eyebrow">Price</p>
+        <h2 id="price-title">Rs 25,000 a month</h2>
+        <p>The monthly fee covers [WHAT THE FEE COVERS].</p>
+        <p class="fineprint">Setup time: [YOUR TIMELINE].</p>
+      </div>
+    </section>
+
+    <!-- Section 8: Contact -->
+    <section class="section contact" id="contact" aria-labelledby="contact-title">
+      <div class="wrap">
+        <div class="contact-box">
+          <p class="eyebrow">Contact</p>
+          <h2 id="contact-title">Talk to Lexora</h2>
+          <p>Send me a message and tell me about your firm.</p>
+          <div class="link-row">
+            <a class="btn btn-primary"
+               href="https://wa.me/918500023891?text=Hi%20Lexora%2C%20I%20run%20a%20small%20law%20firm%20and%20I%20want%20to%20know%20more"
+               aria-label="Message Lexora on WhatsApp">Message me on WhatsApp</a>
+            <a class="btn btn-ghost"
+               href="mailto:mrkrin@gmail.com?subject=Lexora%20matter%20and%20fee%20board"
+               aria-label="Email Lexora">Email me</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Section 9: Footer -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="brand">Lexora</div>
+      <p class="tagline">Your hearings and fees, finally on one screen.</p>
+      <nav class="footer-links" aria-label="Contact Lexora">
+        <a href="https://wa.me/918500023891?text=Hi%20Lexora%2C%20I%20run%20a%20small%20law%20firm%20and%20I%20want%20to%20know%20more"
+           aria-label="Message Lexora on WhatsApp">Message me on WhatsApp</a>
+        <a href="mailto:mrkrin@gmail.com?subject=Lexora%20matter%20and%20fee%20board"
+           aria-label="Email Lexora">Email me</a>
+      </nav>
+      <p class="footer-note">Lexora — matter and fee board and intake form for solo and small law firms in Chittoor, Andhra Pradesh.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) { return; }
+
+      var targets = document.querySelectorAll('a[data-scroll]');
+      for (var i = 0; i < targets.length; i++) {
+        targets[i].addEventListener('click', function (event) {
+          var id = this.getAttribute('href');
+          if (!id || id.charAt(0) !== '#') { return; }
+          var el = document.querySelector(id);
+          if (!el) { return; }
+          event.preventDefault();
+          window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 8, behavior: 'smooth' });
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>
